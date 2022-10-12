@@ -82,12 +82,6 @@ func UpdatePresentation(c *gin.Context) {
 }
 
 func DeletePresentation(c *gin.Context) {
-	var input PresentationInput
-	if err := c.ShouldBindJSON(&input); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
 	id, err := strconv.ParseUint(c.Param("id"), 10, 16)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -96,13 +90,6 @@ func DeletePresentation(c *gin.Context) {
 
 	p := models.Presentation{}
 	p.ID = uint(id)
-
-	//Block beneath not really necessary
-	p.Time = input.Time
-	p.Location = input.Location
-	p.Speaker = input.Speaker
-	p.Title = input.Title
-	//end block
 
 	_, err = p.DeletePresentation()
 	if err != nil {
@@ -114,12 +101,6 @@ func DeletePresentation(c *gin.Context) {
 }
 
 func UpdatePowerpoint(c *gin.Context) {
-	var input PresentationInput
-	if err := c.ShouldBindJSON(&input); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
 	id, err := strconv.ParseUint(c.Param("id"), 10, 16)
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
