@@ -9,6 +9,7 @@ type Presentation struct {
 	CreatedAt  time.Time ``
 	UpdatedAt  time.Time ``
 	Time       time.Time `json:"time"`
+	EndTime    time.Time `json:"endtime"`
 	Location   string    `gorm:"size:255; not null;" json:"location"`
 	Speaker    string    `gorm:"size:255; not null;" json:"speaker"`
 	Title      string    `gorm:"size:255; not null; unique" json:"title"`

@@ -14,6 +14,7 @@ import (
 type PresentationInput struct {
 	//ID         string    `json:"id" binding:"required"`
 	Time       time.Time `json:"time" binding:"required"`
+	EndTime    time.Time `json:"endtime" binding:"required"`
 	Location   string    `json:"location" binding:"required"`
 	Speaker    string    `json:"speaker" binding:"required"`
 	Title      string    `json:"title" binding:"required"`
@@ -29,6 +30,7 @@ func CreatePresentation(c *gin.Context) {
 
 	p := models.Presentation{}
 	p.Time = input.Time
+	p.EndTime = input.EndTime
 	p.Location = input.Location
 	p.Speaker = input.Speaker
 	p.Title = input.Title
@@ -68,6 +70,7 @@ func UpdatePresentation(c *gin.Context) {
 	p := models.Presentation{}
 	p.ID = uint(id)
 	p.Time = input.Time
+	p.EndTime = input.EndTime
 	p.Location = input.Location
 	p.Speaker = input.Speaker
 	p.Title = input.Title
