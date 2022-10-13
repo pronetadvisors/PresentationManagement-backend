@@ -31,10 +31,6 @@ func GetPresentation() ([]Presentation, error) {
 	return presentations, nil
 }
 
-//func getPresentationByDate() ([]Presentation, error) {}
-//func getPresentationByLoc() ([]Presentation, error) {}
-//func getPresentationByDateLoc() ([]Presentation, error) {}
-
 func (p *Presentation) UpdatePresentation() (*Presentation, error) {
 	var presentation Presentation
 	if err := DB.Where("id = ?", p.ID).First(&presentation).Error; err != nil {

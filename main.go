@@ -18,7 +18,7 @@ func main() {
 
 	r := gin.Default()
 
-	r.Use(cors.New(corsConfig))
+//	r.Use(cors.New(corsConfig))
 
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"message": "Presentation Management Systems API Online."})
@@ -32,6 +32,17 @@ func main() {
 	public.DELETE("/presentation/:id", controllers.DeletePresentation)
 
 	public.PUT("/presentation/pp/:id", controllers.UpdatePowerpoint)
+
+	public.POST("/settings/", controllers.CreateSettings)
+	public.GET("/settings/", controllers.GetSettings)
+	public.PUT("/settings/:id", controllers.UpdateSettings)
+	public.DELETE("/settings/:id", controllers.DeleteSettings)
+
+	public.PUT("/settings/logo/", controllers.UploadLogo)
+	public.PUT("/settings/sponsor/", controllers.UploadSponsor)
+
+	//Serve Static Files
+	public.StaticFS("/images", http.Dir("./storage"))
 
 	err := r.Run(":8085")
 	if err != nil {

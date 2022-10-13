@@ -35,4 +35,5 @@ func ConnectDatabase() {
 	}
 
 	DB.AutoMigrate(&Presentation{})
+	DB.AutoMigrate(&Settings{})
 }
