@@ -40,6 +40,8 @@ func main() {
 
 	public.PUT("/settings/logo/", controllers.UploadLogo)
 	public.PUT("/settings/sponsor/", controllers.UploadSponsor)
+	public.GET("/settings/sponsor/", controllers.GetSponsors)
+
 
 	//Serve Static Files
 	public.StaticFS("/images", http.Dir("./storage"))
