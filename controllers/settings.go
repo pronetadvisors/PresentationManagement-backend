@@ -4,7 +4,6 @@ import (
 	"PresentationManagement-backend/models"
 	"github.com/gin-gonic/gin"
 	"github.com/google/uuid"
-	"io/ioutil"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -113,9 +112,9 @@ func UploadLogo(c *gin.Context) {
 }
 
 func GetSponsors(c *gin.Context) {
-	output := []string{}
+	var output []string
 
-	files, err := ioutil.ReadDir("./storage/sponsors/")
+	files, err := os.ReadDir("./storage/sponsors/")
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 	}
