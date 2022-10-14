@@ -13,12 +13,12 @@ func main() {
 	models.ConnectDatabase()
 
 	corsConfig := cors.DefaultConfig()
-	corsConfig.AllowOrigins = []string{"http://localhost:8080"}
+	corsConfig.AllowOrigins = []string{"https://dd.noc4.co"}
 	corsConfig.AddAllowMethods("OPTIONS")
 
 	r := gin.Default()
 
-//	r.Use(cors.New(corsConfig))
+	r.Use(cors.New(corsConfig))
 
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{"message": "Presentation Management Systems API Online."})
@@ -46,7 +46,7 @@ func main() {
 	//Serve Static Files
 	public.StaticFS("/images", http.Dir("./storage"))
 
-	err := r.Run(":8085")
+	err := r.Run(":8080")
 	if err != nil {
 		fmt.Println("Error starting server.")
 		return
