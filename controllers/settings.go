@@ -125,7 +125,7 @@ func GetSponsors(c *gin.Context) {
 		}
 	}
 
-	c.JSON(http.StatusOK, gin.H{"message": output})
+	c.JSON(http.StatusOK, gin.H{"sponsors": output})
 }
 
 func UploadSponsor(c *gin.Context) {
