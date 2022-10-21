@@ -8,6 +8,7 @@ type Presentation struct {
 	ID         uint      `gorm:"primary_key" json:"id"`
 	CreatedAt  time.Time ``
 	UpdatedAt  time.Time ``
+	SessionID  string    `json:"session_id"`
 	Time       time.Time `json:"time"`
 	EndTime    time.Time `json:"endtime"`
 	Location   string    `gorm:"size:255; not null;" json:"location"`
