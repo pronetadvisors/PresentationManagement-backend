@@ -6,14 +6,22 @@ import (
 	"fmt"
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
+	"os"
 	"net/http"
 )
 
 func main() {
+	err := godotenv.Load(".env")
+	if err != nil {
+		fmt.Println("Error loading .env file")
+		return
+	}
+
 	models.ConnectDatabase()
 
 	corsConfig := cors.DefaultConfig()
-	corsConfig.AllowOrigins = []string{"https://dd.noc4.co"}
+	corsConfig.AllowOrigins = []string{os.Getenv("APP_URL")}
 	corsConfig.AddAllowMethods("OPTIONS")
 
 	r := gin.Default()
@@ -46,7 +54,7 @@ func main() {
 	//Serve Static Files
 	public.StaticFS("/images", http.Dir("./storage"))
 
-	err := r.Run(":8080")
+	err = r.Run(fmt.Sprintf(":%s", os.Getenv("PORT")))
 	if err != nil {
 		fmt.Println("Error starting server.")
 		return
