@@ -60,7 +60,7 @@ func (p *Presentation) DeletePresentation() (*Presentation, error) {
 
 func (p *Presentation) UpdatePowerpoint() (*Presentation, error) {
 	var presentation Presentation
-	if err := DB.Where("id = ?", p.ID).First(&presentation).Error; err != nil {
+	if err := DB.Where("session_id = ?", p.SessionID).First(&presentation).Error; err != nil {
 		return &Presentation{}, err
 	}
 

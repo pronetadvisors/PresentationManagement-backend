@@ -3,7 +3,6 @@ package controllers
 import (
 	"PresentationManagement-backend/models"
 	"github.com/gin-gonic/gin"
-	"github.com/google/uuid"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -106,11 +105,7 @@ func DeletePresentation(c *gin.Context) {
 }
 
 func UpdatePowerpoint(c *gin.Context) {
-	id, err := strconv.ParseUint(c.Param("id"), 10, 16)
-	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
+	sessionId := c.Param("session_id")
 
 	//BLOCK - File upload & rename
 	file, err := c.FormFile("file")
@@ -120,7 +115,7 @@ func UpdatePowerpoint(c *gin.Context) {
 		return
 	}
 	fileExtension := filepath.Ext(file.Filename)
-	newFileName := uuid.New().String() + fileExtension
+	newFileName := sessionId + fileExtension
 	if err := c.SaveUploadedFile(file, os.Getenv("BUCKET_PATH")+newFileName); err != nil {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
 		return
@@ -128,7 +123,7 @@ func UpdatePowerpoint(c *gin.Context) {
 	//END BLOCK
 
 	p := models.Presentation{}
-	p.ID = uint(id)
+	p.SessionID = sessionId
 	p.Powerpoint = newFileName
 
 	_, err = p.UpdatePowerpoint()
