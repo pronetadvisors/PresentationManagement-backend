@@ -11,13 +11,14 @@ import (
 )
 
 type PresentationInput struct {
-	SessionID  string    `json:"session_id" binding:"required"`
-	Time       time.Time `json:"time" binding:"required"`
-	EndTime    time.Time `json:"endtime" binding:"required"`
-	Location   string    `json:"location" binding:"required"`
-	Speaker    string    `json:"speaker" binding:"required"`
-	Title      string    `json:"title" binding:"required"`
-	Powerpoint string    `json:"powerpoint"`
+	SessionID   string    `json:"session_id" binding:"required"`
+	Time        time.Time `json:"time" binding:"required"`
+	EndTime     time.Time `json:"endtime" binding:"required"`
+	Location    string    `json:"location" binding:"required"`
+	Speaker     string    `json:"speaker" binding:"required"`
+	Title       string    `json:"title" binding:"required"`
+	Description string	  `json:"description" binding:"required"`
+	Powerpoint  string    `json:"powerpoint"`
 }
 
 func CreatePresentation(c *gin.Context) {
@@ -34,6 +35,7 @@ func CreatePresentation(c *gin.Context) {
 	p.Location = input.Location
 	p.Speaker = input.Speaker
 	p.Title = input.Title
+	p.Description = input.Description
 
 	_, err := p.CreatePresentation()
 	if err != nil {
@@ -75,6 +77,7 @@ func UpdatePresentation(c *gin.Context) {
 	p.Location = input.Location
 	p.Speaker = input.Speaker
 	p.Title = input.Title
+	p.Description = input.Description
 
 	_, err = p.UpdatePresentation()
 	if err != nil {

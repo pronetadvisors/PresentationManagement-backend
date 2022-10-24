@@ -5,16 +5,17 @@ import (
 )
 
 type Presentation struct {
-	ID         uint      `gorm:"primary_key" json:"id"`
-	CreatedAt  time.Time ``
-	UpdatedAt  time.Time ``
-	SessionID  string    `json:"session_id"`
-	Time       time.Time `json:"time"`
-	EndTime    time.Time `json:"endtime"`
-	Location   string    `gorm:"size:255; not null;" json:"location"`
-	Speaker    string    `gorm:"size:255; not null;" json:"speaker"`
-	Title      string    `gorm:"size:255; not null; unique" json:"title"`
-	Powerpoint string    `gorm:"size:255;" json:"powerpoint"`
+	ID          uint      `gorm:"primary_key" json:"id"`
+	CreatedAt   time.Time ``
+	UpdatedAt   time.Time ``
+	SessionID   string    `json:"session_id"`
+	Time        time.Time `json:"time"`
+	EndTime     time.Time `json:"endtime"`
+	Location    string    `gorm:"size:255; not null;" json:"location"`
+	Speaker     string    `gorm:"size:255; not null;" json:"speaker"`
+	Title       string    `gorm:"size:255; not null;" json:"title"`
+	Description string 	`gorm:"size:255; not null;" json:"description"`
+	Powerpoint  string    `gorm:"size:255;" json:"powerpoint"`
 }
 
 func (p *Presentation) CreatePresentation() (*Presentation, error) {
