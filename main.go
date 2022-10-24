@@ -28,11 +28,12 @@ func main() {
 
 	r.Use(cors.New(corsConfig))
 
-	r.GET("/", func(c *gin.Context) {
-		c.JSON(http.StatusOK, gin.H{"message": "Presentation Management Systems API Online."})
-	})
 
 	public := r.Group("/api")
+
+	public.GET("/", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{"message": "Presentation Management Systems API Online."})
+	})
 
 	public.POST("/presentation/", controllers.CreatePresentation)
 	public.GET("/presentation/", controllers.GetPresentation)
