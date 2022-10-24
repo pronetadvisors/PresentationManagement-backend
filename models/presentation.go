@@ -70,3 +70,16 @@ func (p *Presentation) UpdatePowerpoint() (*Presentation, error) {
 
 	return p, nil
 }
+
+func (p *Presentation) DeletePowerpoint() (*Presentation, error) {
+	var presentation Presentation
+	if err := DB.Where("id = ?", p.ID).First(&presentation).Error; err != nil {
+		return &Presentation{}, err
+	}
+
+	if err := DB.Model(&presentation).Update("powerpoint", "").Error; err != nil {
+		return &Presentation{}, err
+	}
+
+	return p, nil
+}

@@ -134,3 +134,22 @@ func UpdatePowerpoint(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{"message": "Presentation uploaded and updated."})
 }
+
+func DeletePowerpoint(c *gin.Context) {
+	id, err := strconv.ParseUint(c.Param("id"), 10, 16)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	p := models.Presentation{}
+	p.ID = uint(id)
+
+	_, err = p.DeletePowerpoint()
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.JSON(http.StatusOK, gin.H{"message": "Presentation deleted."})
+}
