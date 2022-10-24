@@ -84,3 +84,12 @@ func (p *Presentation) DeletePowerpoint() (*Presentation, error) {
 
 	return p, nil
 }
+
+func GetPowerpointbyRoom(room string) ([]Presentation, error) {
+	var presentations []Presentation
+	if err := DB.Where("location = ?", room).Find(&presentations).Error; err != nil {
+		return presentations, err
+	}
+
+	return presentations, nil
+}

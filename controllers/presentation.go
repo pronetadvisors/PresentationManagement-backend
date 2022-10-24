@@ -2,7 +2,10 @@ package controllers
 
 import (
 	"PresentationManagement-backend/models"
+	"archive/zip"
+	"fmt"
 	"github.com/gin-gonic/gin"
+	"io"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -155,4 +158,44 @@ func DeletePowerpoint(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, gin.H{"message": "Presentation deleted."})
+}
+
+
+type PowerpointRequest struct {
+	Location    string    `json:"location" binding:"required"`
+}
+func GetAllPowerPoints(c *gin.Context) {
+	var input PowerpointRequest
+	if err := c.ShouldBindJSON(&input); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	presentations, err := models.GetPowerpointbyRoom(input.Location)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+
+	c.Writer.Header().Set("Content-type", "application/octet-stream")
+	c.Stream(func(w io.Writer) bool {
+
+		// Create a zip archive.
+		ar := zip.NewWriter(w)
+		c.Writer.Header().Set("Content-Disposition", fmt.Sprintf("attachment; filename=%s.zip", input.Location))
+
+		for _, presentation := range presentations {
+			if presentation.Powerpoint != "" {
+				file, _ := os.Open(os.Getenv("BUCKET_PATH") + presentation.Powerpoint)
+				f1, _ := ar.Create(os.Getenv("BUCKET_PATH") + presentation.Powerpoint)
+				io.Copy(f1, file)
+			}
+		}
+
+		ar.Close()
+
+		return false
+	})
+
+	c.JSON(http.StatusOK, gin.H{"message": "Zip sent."})
 }

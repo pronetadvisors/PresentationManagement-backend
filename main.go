@@ -42,6 +42,7 @@ func main() {
 
 	public.PUT("/presentation/pp/:session_id", controllers.UpdatePowerpoint)
 	public.DELETE("/presentation/pp/:id", controllers.DeletePowerpoint)
+	public.POST("/presentation/pp/", controllers.GetAllPowerPoints)
 
 	public.POST("/settings/", controllers.CreateSettings)
 	public.GET("/settings/", controllers.GetSettings)
