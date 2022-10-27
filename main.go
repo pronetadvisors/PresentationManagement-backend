@@ -55,7 +55,7 @@ func main() {
 
 
 	//Serve Static Files
-	public.StaticFS("/images", http.Dir("./storage"))
+	public.StaticFS("/images", http.Dir(os.Getenv("BUCKET_PATH")))
 
 	err = r.Run(fmt.Sprintf(":%s", os.Getenv("PORT")))
 	if err != nil {
