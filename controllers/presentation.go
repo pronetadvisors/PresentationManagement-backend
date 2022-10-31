@@ -186,8 +186,8 @@ func GetAllPowerPoints(c *gin.Context) {
 
 		for _, presentation := range presentations {
 			if presentation.Powerpoint != "" {
-				file, _ := os.Open(os.Getenv("BUCKET_PATH")[1:] + presentation.Powerpoint)
-				f1, _ := ar.Create(os.Getenv("BUCKET_PATH")[1:] + presentation.Powerpoint)
+				file, _ := os.Open(os.Getenv("BUCKET_PATH") + presentation.Powerpoint)
+				f1, _ := ar.Create(os.Getenv("BUCKET_PATH") + presentation.Powerpoint)
 				io.Copy(f1, file)
 			}
 		}
