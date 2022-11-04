@@ -14,7 +14,7 @@ type Presentation struct {
 	Location    string    `gorm:"size:255; not null;" json:"location"`
 	Speaker     string    `gorm:"size:255; not null;" json:"speaker"`
 	Title       string    `gorm:"size:255; not null;" json:"title"`
-	Description string 	`gorm:"size:255; not null;" json:"description"`
+	Description string    `gorm:"size:1000; not null;" json:"description"`
 	Powerpoint  string    `gorm:"size:255;" json:"powerpoint"`
 }
 

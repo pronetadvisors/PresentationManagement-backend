@@ -62,9 +62,10 @@ echo "DB_USER=root" >> .env
 echo "DB_PASSWORD=$1" >> .env
 echo "DB_NAME=presman_prod" >> .env
 echo "DB_PORT=3306" >> .env
-
-echo "BUCKET_PATH=./storage/"
+echo "BUCKET_PATH=./storage/" >> .env
 echo "APP_URL=$3" >> .env
+echo "PORT=8080" >> .env
+
 go build main.go
 pm2 start main
 pm2 save
